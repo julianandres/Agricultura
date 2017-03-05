@@ -6,7 +6,9 @@
 package beans;
 
 import dataBase.ConexionDB;
+import dataEjb.ProcessEJB;
 import dataEjb.SubProcessEJB;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,30 +37,35 @@ import org.primefaces.model.StreamedContent;
 @ManagedBean
 @SessionScoped
 public class ArchivesMB implements Serializable {
-    
+
     private String destination;
     private String destinationImage;
     @ManagedProperty("#{loginBean}")
     private LoginBean logBean;
-    
+
     @ManagedProperty("#{mainMB}")
     private MainMB mainmb;
     private File prueba;
     StreamedContent imageen;
-    
+
     @EJB
     private SubProcessEJB ejbSubProcess;
+    
+    
+    @EJB
+    private ProcessEJB  ejbProcess;
+    
     /**
      * Creates a new instance of archivesMB
      *
      * @param event
      */
     private boolean stateNgb;
-    
+
     private boolean stateRgb;
     private boolean subirFotos;
     private boolean selecttypephoto;
-    
+
     @PostConstruct
     public void init() {
         setSelecttypephoto(true);
@@ -76,89 +83,89 @@ public class ArchivesMB implements Serializable {
             setStateRgb(true);
         }
         destinationImage = "hola";
-        
+
     }
 
     public boolean isSelecttypephoto() {
         return selecttypephoto;
     }
-    
+
     public void setSelecttypephoto(boolean selecttypephoto) {
         this.selecttypephoto = selecttypephoto;
     }
-    
+
     public boolean isSubirFotos() {
         return subirFotos;
     }
-    
+
     public void setSubirFotos(boolean subirFotos) {
         this.subirFotos = subirFotos;
     }
-    
+
     public StreamedContent getImageen() {
         return imageen;
     }
-    
+
     public void setImageen(StreamedContent imageen) {
         this.imageen = imageen;
     }
-    
+
     public File getPrueba() {
         return prueba;
     }
-    
+
     public void setPrueba(File prueba) {
         this.prueba = prueba;
     }
-    
+
     public String getDestination() {
         return destination;
     }
-    
+
     public void setDestination(String destination) {
         this.destination = destination;
     }
-    
+
     public String getDestinationImage() {
         return destinationImage;
     }
-    
+
     public void setDestinationImage(String destinationImage) {
         this.destinationImage = destinationImage;
     }
-    
+
     public boolean isStateRgb() {
         return stateRgb;
     }
-    
+
     public void setStateRgb(boolean stateRgb) {
         this.stateRgb = stateRgb;
     }
-    
+
     public boolean isStateNgb() {
         return stateNgb;
     }
-    
+
     public void setStateNgb(boolean stateNgb) {
         this.stateNgb = stateNgb;
     }
-    
+
     public LoginBean getLogBean() {
         return logBean;
     }
-    
+
     public void setLogBean(LoginBean logBean) {
         this.logBean = logBean;
     }
-    
+
     public MainMB getMainmb() {
         return mainmb;
     }
-    
+
     public void setMainmb(MainMB mainmb) {
         this.mainmb = mainmb;
     }
-    
+
     public void handleFileUploadNoir(FileUploadEvent event) {
         try {
             copyFile(event.getFile().getFileName(), event.getFile().getInputstream(), "FotoNoir/");
@@ -170,7 +177,7 @@ public class ArchivesMB implements Serializable {
     }
 
     public void handleFileUploadRGB(FileUploadEvent event) {
-        
+
         try {
             copyFile(event.getFile().getFileName(), event.getFile().getInputstream(), "FotoRGB/");
             ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(), "fotorgb", "1");
@@ -191,56 +198,56 @@ public class ArchivesMB implements Serializable {
         ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(), "fotorgb", "0");
         stateRgb = false;
     }
-    
+
     public void copyFile(String fileName, InputStream in, String tipo) {
-        destination = "/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + tipo;
+        destination = "/var/www/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + tipo;
         destinationImage = destination + fileName;
         System.out.println(destination);
         try {
             if (new File(destination).mkdirs()) {
                 System.out.println("create Exited");
                 OutputStream out = new FileOutputStream(new File(destination + fileName));
-                
+
                 int read = 0;
                 byte[] bytes = new byte[1024];
-                
+
                 while ((read = in.read(bytes)) != -1) {
                     out.write(bytes, 0, read);
                 }
-                
+
                 in.close();
                 out.flush();
                 out.close();
-                
+
                 System.out.println("New file created!");
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Succesful", fileName + " is uploaded.");
                 FacesContext.getCurrentInstance().addMessage(null, message);
-                
+
             } else {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", fileName + " no fue subido, ya existe .");
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 System.out.println("Problem Create");
             }
             System.out.println("prueba");
-            
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void deleteFile(String fileName, String tipo) {
-        destination = "/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + tipo;
+        destination = "/var/www/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + tipo;
         System.out.println(destination);
         File directiorioAborrar = new File(destination);
         borrarDirectorio(directiorioAborrar);
-        
+
         if (directiorioAborrar.delete()) {
             System.out.println("Eliminado con exito");
-            
+
             System.out.println("se ha eliminado");
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Succesful", "Eliminado Correctamente");
             FacesContext.getCurrentInstance().addMessage(null, message);
-            
+
         } else {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Error eliminando");
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -261,7 +268,7 @@ public class ArchivesMB implements Serializable {
 
     public void irUploadPhotoNGB() {
         setSubirFotos(true);
-        setSelecttypephoto(true);        
+        setSelecttypephoto(true);
     }
 
     public void irUploadPhotoRGB() {
@@ -271,7 +278,7 @@ public class ArchivesMB implements Serializable {
 
     public void verFotoNoir() {
         setSubirFotos(false);
-        String dir="/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/" ;
+        String dir = "/var/www/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
         File directorio = new File(dir);
         File[] ficheros = directorio.listFiles();
         for (File fichero : ficheros) {
@@ -282,7 +289,7 @@ public class ArchivesMB implements Serializable {
                 prueba = fichero;
                 imageen = new DefaultStreamedContent(new FileInputStream(prueba));
                 System.out.println("prueba");
-            } //destinationImage = "/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
+            } //destinationImage = "/var/www/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
             catch (FileNotFoundException ex) {
                 Logger.getLogger(ArchivesMB.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -291,7 +298,7 @@ public class ArchivesMB implements Serializable {
 
     public void verFotoRGB() {
         setSubirFotos(false);
-        String dir="/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoRGB/" ;
+        String dir = "/var/www/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoRGB/";
         File directorio = new File(dir);
         File[] ficheros = directorio.listFiles();
         for (File fichero : ficheros) {
@@ -302,22 +309,88 @@ public class ArchivesMB implements Serializable {
                 prueba = fichero;
                 imageen = new DefaultStreamedContent(new FileInputStream(prueba));
                 System.out.println("prueba");
-            } //destinationImage = "/home/julian/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
+            } //destinationImage = "/var/www/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
             catch (FileNotFoundException ex) {
                 Logger.getLogger(ArchivesMB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    public String finalizarSubProceso(){
-            if(ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(), "estado", "1")){
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Finalizado", "Registro de fotografías completado");
+
+    public String finalizarSubProceso() {
+        boolean proceso = false;
+        String pathProject = "/var/www/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/";
+        String dirNoir = "/var/www/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
+
+        if (new File(pathProject + "ResultadosNDVI/ResMatPlot/").mkdirs()) {
+            if (new File(pathProject + "Bandas/").mkdirs()) {
+                System.out.println("create Exited"); 
+                try {
+                    proceso = true;
+                    String[] cmd = {"bash", "/home/julian/PythonWork/script.sh",pathProject}; //Comando de apagado en windows
+                    Process process = Runtime.getRuntime().exec(cmd);
+
+                    InputStream inputstream = process.getInputStream();
+                    InputStream errorStream = process.getErrorStream();
+                    BufferedInputStream bufferedinputstream = new BufferedInputStream(inputstream);
+                    int content;
+                    String salida = "";
+                    while ((content = bufferedinputstream.read()) != -1) {
+                        // convert to char and display it
+                        salida += (char) content;
+
+                    }
+                    System.out.println(salida);
+                    BufferedInputStream bufferedinputstream2 = new BufferedInputStream(errorStream);
+                    content = 0;
+                    salida = "";
+                    while ((content = bufferedinputstream2.read()) != -1) {
+                        // convert to char and display it
+                        salida += (char) content;
+                    }
+                    System.out.println(salida);
+                } catch (IOException ioe) {
+                    System.out.println(ioe);
+
+                }
+                System.out.println("ARchivo NDVI creado satisfactoriamente");
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Succesful", "Información procesada correctamente");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
+            } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Información no procesada");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                System.out.println("Problem Create");
+            }
+
+        } else {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Información no procesada");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            System.out.println("Problem Create");
+        }
+        if (proceso) {
+            if (ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(), "estado", "1")) {
+                int numeroEnProceso = mainmb.getSubProcessSelect().getNumeroenProceso();
+                int proximo = numeroEnProceso+1;
+                if(numeroEnProceso<mainmb.getProcessSelect().getNumeroSubprocesos()){
+                    ejbProcess.updateProceso(mainmb.getProcessSelect(), "subProcesoActual", proximo+"");
+                }else{
+                    ejbProcess.updateProceso(mainmb.getProcessSelect(), "estado", "1");
+                }
+                mainmb.setProcessTable(ejbProcess.findProcesobyIdUsuario(logBean.getUsername()));
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Finalizado", "Procesamiento de información completada");
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 return "mainPage.xhtml?faces-redirect=true";
-            }else{
+            } else {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error registrando cambios");
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 return "";
             }
+        } else {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Información no procesada");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            System.out.println("Problem Create");
+            return "";
+        }
     }
-    
+
 }

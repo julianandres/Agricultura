@@ -161,6 +161,7 @@ public class MainMB implements Serializable {
         return "uploadPage.xhtml"; 
     }
     public String backPage(){
+        processTable = processEjb.findProcesobyIdUsuario(logBean.getUsername());
         return "mainPage.xhtml";
     }
     public String backPageUpload(){

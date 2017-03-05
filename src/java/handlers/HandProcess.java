@@ -14,10 +14,15 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Proceso;
+import models.SubProceso;
 
 /**
  *
@@ -54,9 +59,9 @@ public class HandProcess {
                        //sp.setFechaInicio(res.getDate("fechaInicio"));
                        String tm = res.getString("fechaInicio");
                        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
-                       sp.setFechaInicio(format.parse(tm));
+                       sp.setFechaInicio(addHours(format.parse(tm), -5));
                        tm = res.getString("fechaFin");
-                       sp.setFechaFin(format.parse(tm));
+                       sp.setFechaFin(addHours(format.parse(tm), -5));
                        sp.setDuracionSemanas(res.getInt("duracionSemanas"));
                        sp.setNumeroSubprocesos(res.getInt("numeroSubprocesos"));
                        sp.setState(res.getBoolean("state"));
@@ -72,6 +77,22 @@ public class HandProcess {
         
         return resultado;
     }
+    public boolean updateProceso(Proceso proceso,String campo,String valor) {
+        if (sentencia != null) {
+            try {
+                
+                int res = sentencia.executeUpdate("UPDATE Proceso SET "+campo+" = "+valor+" WHERE id = '" + proceso.getId() + "' ");
+                System.out.println(res);
+                sentencia.close();
+                con.close();
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(HandSubProcess.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
+    }
     public void cerrarConexion(){
         try {
             sentencia.close();
@@ -80,6 +101,14 @@ public class HandProcess {
             System.out.println("hubo un error   " + ex.getMessage());
         }
     
+    }
+    public Date addHours(Date fecha, int horas) {
+        Date dato;
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(fecha);
+        gc.add(Calendar.HOUR_OF_DAY, horas);
+        dato = gc.getTime();
+        return dato;
     }
     
 }

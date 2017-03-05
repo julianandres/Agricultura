@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import models.Proceso;
+import models.SubProceso;
 
 /**
  *
@@ -28,5 +29,11 @@ public class ProcessEJB {
         procesos = hp.listarProcesosByIdUsuario(idUsuario);
         hp.cerrarConexion();
         return procesos;
+    }
+      public boolean updateProceso(Proceso proceso,String campo,String valor){
+        boolean resultado = false;
+        HandProcess  hp= new HandProcess();
+        resultado = hp.updateProceso(proceso,campo,valor);
+        return resultado;
     }
 }

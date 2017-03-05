@@ -6,8 +6,15 @@
 package beans;
 
 import dataEjb.UserEJB;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.io.StringWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -15,6 +22,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import javax.script.SimpleScriptContext;
 import javax.servlet.http.HttpSession;
 import models.Usuario;
 import org.primefaces.context.RequestContext;
@@ -131,6 +143,7 @@ public class LoginBean implements Serializable {
     }
 
     public String iniciarSistema() {
+        
         String destino;
         if (login) {
             destino = "mainPage.xhtml";

@@ -56,12 +56,12 @@
                         </p:column>
                         <p:column headerText="Fecha de inicio">
                             <h:outputText value="#{selProcess.fechaInicio}">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="EST"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Fecha de finalización">
                             <h:outputText value="#{selProcess.fechaFin}">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="EST" />
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Sub Proceso Actual">

@@ -156,9 +156,6 @@ public class MainMB implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, message);
          return "";
         }  
-    } 
-    public String uploadPhotos(){
-        return "uploadPage.xhtml"; 
     }
     public String backPage(){
         processTable = processEjb.findProcesobyIdUsuario(logBean.getUsername());

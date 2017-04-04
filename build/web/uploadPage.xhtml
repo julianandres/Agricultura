@@ -64,16 +64,28 @@
                                                         <p:outputLabel id="error" value=" ya existen fotografías en #{mainMB.subProcessSelect.nombre}" style="font-weight:bold" />
                                                     </c:if>                                                        
                                                 </c:if>
-
+                                                 
                                             </f:facet>
                                         </h:panelGrid>
                                         <h:panelGrid id="panelGridnumero2" style="border: yellowgreen" columns="2">
                                             <p:commandButton value="Volver" action="#{mainMB.backPageUpload()}" />
                                             <p:commandButton value="Logout" action="#{loginBean.logout()}"/>   
                                         </h:panelGrid>
+                                        <script type="text/javascript">
+                                                    function start() {
+                                                    PF('statusDialog').show();
+                                                    }
+
+                                                    function stop() {
+                                                    PF('statusDialog').hide();
+                                                    }
+                                         </script>
+                                        <p:dialog modal="true" widgetVar="statusDialog" header="Procesando" draggable="false" closable="false" resizable="false">
+                                             <p:graphicImage value="images/progressbar.gif" />
+                                          </p:dialog>
                                         <c:if test="#{archivesMB.stateNgb}">
                                             <c:if test="#{archivesMB.stateRgb}">
-                                                <p:commandButton value="Finalizar" update="messages" action="#{archivesMB.finalizarSubProceso()}"/>
+                                                <p:commandButton value="Finalizar" update="messages" action="#{archivesMB.finalizarSubProceso()}" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);"/>
                                             </c:if>                                                        
                                         </c:if>
                                     </p:panel>

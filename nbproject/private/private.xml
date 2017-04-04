@@ -3,24 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/beans/ArchivesMB.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/dataEjb/SubProcessEJB.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/models/SubProceso.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/web/processPage.xhtml</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/beans/LoginBean.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/dataEjb/ProcessEJB.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/handlers/HandProcess.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/dataBase/ConexionDB.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/handlers/HandSubProcess.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/beans/MainMB.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/models/Proceso.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/web/mainPage.xhtml</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/web/loginPage.xhtml</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/web/uploadPage.xhtml</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/src/java/dataEjb/UserEJB.java</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/web/index.xhtml</file>
-            <file>file:/C:/Users/JULIAN/Documents/NetBeansProjects/Agriculture/web/css/style.css</file>
+            <file>file:/home/julianbolanos/Agriculture/nbproject/build-impl.xml</file>
+            <file>file:/home/julianbolanos/Agriculture/src/java/beans/MainMB.java</file>
+            <file>file:/home/julianbolanos/Agriculture/web/changearchive.xhtml</file>
+            <file>file:/home/julianbolanos/Agriculture/web/processPage.xhtml</file>
+            <file>file:/home/julianbolanos/Agriculture/web/index.xhtml</file>
+            <file>file:/home/julianbolanos/Agriculture/src/java/beans/LoginBean.java</file>
+            <file>file:/home/julianbolanos/Agriculture/web/uploadPage.xhtml</file>
+            <file>file:/home/julianbolanos/Agriculture/src/java/beans/ArchivesMB.java</file>
+            <file>file:/home/julianbolanos/Agriculture/web/mainPage.xhtml</file>
         </group>
     </open-files>
 </project-private>

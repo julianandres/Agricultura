@@ -33,6 +33,7 @@
                             </button>
                             <div class="logo">
                                 <h1><h:link styleClass="navbar-brand" outcome="index.xhtml" value="Agromobile"/></h1>
+                               
                             </div>
                         </div>
                     </nav>
@@ -96,7 +97,7 @@
                                     <c:if test="#{mainMB.subirFotos}">
                                          <f:facet name="footer">
                                              <p:commandButton id="loginButton" value="Subir Fotografias"
-                                                              action="#{mainMB.uploadPhotos()}"
+                                                              action="#{archivesMB.uploadPhotos()}"
                                                               ajax="false"
                                                               />
                                          </f:facet>

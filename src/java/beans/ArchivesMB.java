@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package beans;
-
-import dataBase.ConexionDB;
+//import dataBase.ConexionDB;
 import dataEjb.ProcessEJB;
 import dataEjb.SubProcessEJB;
 import java.io.BufferedInputStream;
@@ -336,15 +335,24 @@ public class ArchivesMB implements Serializable {
 
     public String finalizarSubProceso() {
         boolean proceso = false;
-        String pathProject = "/var/www/html/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/";
-        String dirNoir = "/var/www/html/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
+        String pathProject = "/var/www/html/InformacionAppWeb/" +
+                logBean.getUsername() + "/" +
+                mainmb.getProcessSelect().getId() +
+                mainmb.getProcessSelect().getNombre() + "/" + 
+                mainmb.getSubProcessSelect().getNombre() + "/";
+        
+        String dirNoir = "/var/www/html/InformacionAppWeb/" +
+                logBean.getUsername() + "/" +
+                mainmb.getProcessSelect().getId() +
+                mainmb.getProcessSelect().getNombre() + "/" +
+                mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
 
         if (new File(pathProject + "ResultadosNDVI/ResMatPlot/").mkdirs()) {
             if (new File(pathProject + "Bandas/pruebasFiltroRojo").mkdirs()) {
                 System.out.println("create Exited");
                 try {
                     proceso = true;
-                    String[] cmd = {"bash", "/home/julianbolanos/PythonWork/script.sh", pathProject}; //Comando de apagado en windows
+                    String[] cmd = {"bash", "/home/julianbolanos/PythonWork/script.sh", pathProject}; //Comando que activa
                     Process process = Runtime.getRuntime().exec(cmd);
 
                     InputStream inputstream = process.getInputStream();

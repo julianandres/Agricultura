@@ -17,7 +17,7 @@
         <!-- //for-mobile-apps -->
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-        <title>Facelet Title</title>
+        <title>Gestion Vuelos</title>
     </h:head>
     <h:body styleClass="banner">
         <div class="header">
@@ -40,26 +40,23 @@
         </div>
         <div class="container">
             <div class="banner-info">
-                <section class="slider">
-                    <div class="flexslider">
-                        <ul class="slides">
+                
 
                             <div class="banner-info-grid">
                                 <h:form id="form">
-                                    <p:fileUpload fileUploadListener="#{loginBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
-                                                  update="messages,commandbtn" sizeLimit="100000" fileLimit="3" />
-
                                     <p:growl id="messages" showDetail="true" />
-                                    <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
-                                        <p:graphicImage value="images/progressbar.gif" />
-                                    </p:dialog>
-
-                                    
-                                    <p:commandButton id="commandbtn" value="Download" disabled="#{loginBean.uploadFileState}" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                    <p:panelGrid style="width: 100%" columns="1">
+                                        <p:outputLabel value="Subir Archivo *.waypoint" />
+                                        <p:fileUpload fileUploadListener="#{loginBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+                                                      update="messages,commandbtn" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(waypoints)$/" />
+                                        <p:commandButton id="commandbtn" value="Download" disabled="#{loginBean.uploadFileState}" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
                                             <p:fileDownload value="#{loginBean.prepDownload()}" />
                                         </p:commandButton>
-                                    
-                                      
+
+                                    </p:panelGrid>
+                                    <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage value="images/progressbar.gif" />
+                                        </p:dialog>
                                     <script type="text/javascript">
                                         function start() {
                                         PF('statusDialog').show();
@@ -72,9 +69,7 @@
                                 </h:form>
                                 <div class="clearfix"> </div>
                             </div>
-                        </ul>
-                    </div>
-                </section>		
+                        		
             </div>
         </div>
 

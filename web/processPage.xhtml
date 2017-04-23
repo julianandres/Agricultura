@@ -75,6 +75,9 @@
                             </p:column>
                         </p:dataTable>
                         <p:commandButton value="Volver" action="#{mainMB.backPage()}" />
+                        <c:if test="#{!mainMB.processSelect.state}">
+                            <p:commandButton value="Mostrar Resultados" action="#{mainMB.listarResultados()}" />
+                        </c:if>
                         <p:dialog id="dialog" header="Detalles del proceso" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
                             <p:outputPanel id="documentPanel">
                                 <p:panelGrid id="panelGrid2" columns="2" columnClasses="value,value" rendered="#{not empty mainMB.subProcessSelect}">

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Resultados </title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <c:forEach var ="item" items="#{mainMB.resultados}">
+                <p:panel id="panelUpload" header="Subir Fotografias en #{mainMB.subProcessSelect.nombre}"  style="width: 100%;margin-left: 10%">
+                    <h:panelGrid id="panelGridUpload" columns="2" style="width: 100%">
+                        <p:panel>
+                            <p:outputLabel>
+                                Imagen RGB
+                            </p:outputLabel>
+                             <p:outputPanel id="uploadPanel">
+                                 <p:graphicImage value="#{item.fotoRGB}" width="1000" height="500" />
+                             </p:outputPanel>
+                        </p:panel>
+                        <p:panel>
+                            <p:outputLabel>
+                                Resultado NDVI
+                            </p:outputLabel>
+                             <p:outputPanel id="uploadPanel">
+                                 <p:graphicImage value="#{item.fotoNDVI}" width="1000" height="500" />
+                             </p:outputPanel>
+                        </p:panel>
+                        <f:facet name="footer">
+                            <c:if test="#{archivesMB.stateNgb}">
+                                <c:if test="#{archivesMB.stateRgb}">
+                                    <p:outputLabel id="error" value="var" style="font-weight:bold" />
+                                </c:if>                                                        
+                            </c:if>
+
+                        </f:facet>
+                    </h:panelGrid>
+                    
+                    
+                </p:panel>
+            </c:forEach>
+        </h:form>
+    </h:body>
+</html>
+

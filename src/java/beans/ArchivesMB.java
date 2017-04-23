@@ -29,6 +29,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import models.Resultado;
+import models.SubProceso;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -68,13 +70,14 @@ public class ArchivesMB implements Serializable {
     private boolean stateRgb;
     private boolean subirFotos;
     private boolean selecttypephoto;
-
+    
     @PostConstruct
     public void init() {
         setSelecttypephoto(true);
         setSubirFotos(true);
         System.out.println("hola");
         System.out.println(logBean.getUsername());
+        
         if (mainmb.getSubProcessSelect().getFotonoir() == 0) {
             setStateNgb(false);
         } else {
@@ -402,7 +405,7 @@ public class ArchivesMB implements Serializable {
                 if (numeroEnProceso < mainmb.getProcessSelect().getNumeroSubprocesos()) {
                     ejbProcess.updateProceso(mainmb.getProcessSelect(), "subProcesoActual", proximo + "");
                 } else {
-                    ejbProcess.updateProceso(mainmb.getProcessSelect(), "estado", "1");
+                    ejbProcess.updateProceso(mainmb.getProcessSelect(), "state", "0");
                 }
                 mainmb.setProcessTable(ejbProcess.findProcesobyIdUsuario(logBean.getUsername()));
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Finalizado", "Procesamiento de información completada");
@@ -425,7 +428,7 @@ public class ArchivesMB implements Serializable {
             return "";
         }
     }
-
+    
  
 
 }

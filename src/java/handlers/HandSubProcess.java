@@ -47,7 +47,7 @@ public class HandSubProcess {
         List<SubProceso> resultado = new ArrayList<>();
         if (sentencia != null) {
             try {
-                ResultSet res = sentencia.executeQuery("SELECT * FROM SubProceso WHERE idProceso = '" + idProceso + "' ");
+                ResultSet res = sentencia.executeQuery("SELECT * FROM SubProceso WHERE idProceso = '" + idProceso + "' ORDER BY numeroenProceso  ASC ");
                 
                 while (res.next()) {
                     SubProceso sp = new SubProceso();

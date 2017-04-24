@@ -17,7 +17,15 @@ public class Resultado {
     String fotoNoIR;
     String fotoNDVI;
     String comentario;
+    String nombreRGB;
 
+    public String getNombreRGB() {
+        return nombreRGB;
+    }
+
+    public void setNombreRGB(String nombreRGB) {
+        this.nombreRGB = nombreRGB;
+    }
     public String getIdSubProceso() {
         return idSubProceso;
     }

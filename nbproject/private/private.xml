@@ -5,6 +5,7 @@
         <group>
             <file>file:/home/julianbolanos/Agriculture/nbproject/build-impl.xml</file>
             <file>file:/home/julianbolanos/Agriculture/src/java/beans/MainMB.java</file>
+            <file>file:/home/julianbolanos/Agriculture/src/java/handlers/HandSubProcess.java</file>
             <file>file:/home/julianbolanos/Agriculture/web/changearchive.xhtml</file>
             <file>file:/home/julianbolanos/Agriculture/web/processPage.xhtml</file>
             <file>file:/home/julianbolanos/Agriculture/web/index.xhtml</file>

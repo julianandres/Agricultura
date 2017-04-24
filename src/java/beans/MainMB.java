@@ -206,8 +206,9 @@ public class MainMB implements Serializable {
            res.setFotoNoIR(base2+dirNoir+getNamePhotoFromString(base1+dirNoir));
            res.setFotoRGB(base2+dirRgb+getNamePhotoFromString(base1+dirRgb));
            res.setFotoNDVI(base2+dirNDVI+getNamePhotoFromString(base1+dirNDVI));
-           res.setIdSubProceso(sp.getId());
-             System.out.println(res.getFotoNDVI());
+           res.setIdSubProceso(sp.getNombre());
+           res.setNombreRGB(getNamePhotoFromString(base1+dirRgb));
+           System.out.println(res.getFotoNDVI());
              System.out.println(res.getFotoRGB());
            resultados.add(res);
            

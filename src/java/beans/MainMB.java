@@ -183,7 +183,7 @@ public class MainMB implements Serializable {
         for (SubProceso sp:getSubProcessTable()){
          if(sp.getEstado()==1){
              String base1="/var/www/html/InformacionAppWeb/";
-             String base2="http://mvubuntu14.eastus.cloudapp.azure.com//InformacionAppWeb/";
+             String base2="http://mvubuntu16.eastus.cloudapp.azure.com//InformacionAppWeb/";
              
         
              String dirNoir = 

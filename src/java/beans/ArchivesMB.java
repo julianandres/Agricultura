@@ -355,7 +355,7 @@ public class ArchivesMB implements Serializable {
                 System.out.println("create Exited");
                 try {
                     proceso = true;
-                    String[] cmd = {"bash", "/home/julianbolanos/PythonWork/script.sh", pathProject}; //Comando que activa
+                    String[] cmd = {"bash", "/home/julian/PythonWork/script.sh", pathProject}; //Comando que activa
                     Process process = Runtime.getRuntime().exec(cmd);
 
                     InputStream inputstream = process.getInputStream();
@@ -400,7 +400,31 @@ public class ArchivesMB implements Serializable {
         }
         if (proceso) {
             if (ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(), "estado", "1")) {
-                int numeroEnProceso = mainmb.getSubProcessSelect().getNumeroenProceso();
+                
+		File directorio = new File(pathProject + "ResultadosNDVI/ResMatPlot/");
+		        String nombreImagen="";
+		        File[] ficheros = directorio.listFiles();
+		        for (File fichero : ficheros) {
+		            try {
+		                if (fichero.isDirectory()) {
+		                    borrarDirectorio(fichero);
+		                }
+		                nombreImagen = fichero.getName();
+		            } //destinationImage = "/var/www/html/InformacionAppWeb/" + logBean.getUsername() + "/" + mainmb.getProcessSelect().getId() + mainmb.getProcessSelect().getNombre() + "/" + mainmb.getSubProcessSelect().getNombre() + "/" + "FotoNoir/";
+		            catch (Exception ex) {
+		                Logger.getLogger(ArchivesMB.class.getName()).log(Level.SEVERE, null, ex);
+		            }
+		        }
+		        String pathNube="http://mvubuntu16.eastus.cloudapp.azure.com/InformacionAppWeb/"+
+				        logBean.getUsername() + "/" +
+		                mainmb.getProcessSelect().getId() +
+		                mainmb.getProcessSelect().getNombre() + "/" + 
+		                mainmb.getSubProcessSelect().getNombre() + "/";
+            	if(ejbSubProcess.updateSubProceso(mainmb.getSubProcessSelect(), "urlResultado", "'"+pathNube + "ResultadosNDVI/ResMatPlot/"+nombreImagen+"'")){
+            			System.out.println("se registraron URL imagenes");
+            	}
+
+		int numeroEnProceso = mainmb.getSubProcessSelect().getNumeroenProceso();
                 int proximo = numeroEnProceso + 1;
                 if (numeroEnProceso < mainmb.getProcessSelect().getNumeroSubprocesos()) {
                     ejbProcess.updateProceso(mainmb.getProcessSelect(), "subProcesoActual", proximo + "");

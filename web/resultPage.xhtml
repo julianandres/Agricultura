@@ -10,6 +10,42 @@
     </h:head>
     <h:body>
         <h:form>
+            
+            <h:panelGrid  columns="2" style="margin-left: 30% ; margin-right: 30%">
+                       <f:facet name="header">
+                             <p:outputLabel style="margin-left: 30% ; margin-right: 30%" >
+                                Interpretación de resultados
+                            </p:outputLabel>
+                        </f:facet>
+                             <p:outputPanel >
+                                 <p:graphicImage value="http://mvubuntu16.eastus.cloudapp.azure.com/InformacionAppWeb/saludables.png" width="150" height="50" />
+                             </p:outputPanel>
+                            <p:outputLabel>
+                                Plantas Sanas y vigorosas
+                            </p:outputLabel>
+                            <p:outputPanel >
+                                 <p:graphicImage value="http://mvubuntu16.eastus.cloudapp.azure.com/InformacionAppWeb/enfermossuelo.png" width="150" height="50" />
+                             </p:outputPanel>
+                            <p:outputLabel>
+                                Plantas enfermas o suelo
+                            </p:outputLabel>
+                            <p:outputPanel >
+                                 <p:graphicImage value="http://mvubuntu16.eastus.cloudapp.azure.com/InformacionAppWeb/otros.png" width="150" height="50" />
+                             </p:outputPanel>
+                            <p:outputLabel>
+                                Agua u otros
+                            </p:outputLabel>
+                             
+                        
+                            <p:commandButton id="commandbtn2"  value="Exportar" ajax="false"  icon="ui-icon-arrowthick-1-s">
+                                 <p:fileDownload value="#{mainMB.prepDownload()}"/>
+                             </p:commandButton>
+                              <p:commandButton id="commandbtn37"  value="Volver" action="#{mainMB.backPageUpload()}" ajax="false">
+                                
+                             </p:commandButton>
+
+                        
+                    </h:panelGrid>
             <c:forEach var ="item" items="#{mainMB.resultados}">
                 <p:panel header="Resultados Proceso #{item.idSubProceso}"  style="width: 100">
                     <h:panelGrid  columns="2" style="width: 100%">
@@ -27,7 +63,7 @@
                             </p:outputLabel>
                              <p:outputPanel >
                                  <p:graphicImage value="#{item.fotoNDVI}" width="600" height="600" />
-                                 <p:graphicImage value="http://mvubuntu14.eastus.cloudapp.azure.com/InformacionAppWeb/banner.png" width="600" height="50" />
+                                 <p:graphicImage value="http://mvubuntu16.eastus.cloudapp.azure.com/InformacionAppWeb/banner.png" width="600" height="50" />
                              </p:outputPanel>
                         </p:panel>
                         <f:facet name="footer">

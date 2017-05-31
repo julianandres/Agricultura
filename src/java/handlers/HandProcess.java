@@ -50,7 +50,7 @@ public class HandProcess {
         if (sentencia != null) {
             try {
                 
-                ResultSet res = sentencia.executeQuery("SELECT * FROM Proceso WHERE idUsuario = '"+idusuario+"'");
+                ResultSet res = sentencia.executeQuery("SELECT * FROM Proceso WHERE idUsuario = '"+idusuario+"' AND deleted = 0 ");
                 while (res.next()) {
                        Proceso sp= new Proceso();
                        sp.setId(res.getString("id"));

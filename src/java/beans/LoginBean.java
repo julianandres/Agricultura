@@ -230,7 +230,7 @@ public class LoginBean implements Serializable {
                 PrintWriter pw = null;
                 try {
                     String nombreext[]=this.file.getFileName().split("\\.");
-                    fichero = new FileWriter("/home/julianbolanos/"+nombreext[0]+".csv");
+                    fichero = new FileWriter("/home/julian/"+nombreext[0]+".csv");
                     pw = new PrintWriter(fichero);
 
                     for (int f = 0; f < lineas.size(); f++) {
@@ -282,7 +282,7 @@ public class LoginBean implements Serializable {
         StreamedContent download = new DefaultStreamedContent();
         String nombreext[]=this.file.getFileName().split("\\.");
         
-        File file = new File("/home/julianbolanos/"+nombreext[0]+".csv");
+        File file = new File("/home/julian/"+nombreext[0]+".csv");
         InputStream input = new FileInputStream(file);
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         download = new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName());
